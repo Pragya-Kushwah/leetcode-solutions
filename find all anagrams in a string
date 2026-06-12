@@ -1,0 +1,37 @@
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+        vector<int> ans;
+        int n = s.size(), m = p.size();
+
+        if (n < m) return ans;
+
+        vector<int> freqP(26, 0), freqS(26, 0);
+
+        // build frequency of pattern p
+        for (char c : p) {
+            freqP[c - 'a']++;
+        }
+
+        int left = 0;
+
+        for (int right = 0; right < n; right++) {
+
+            // add current character to window
+            freqS[s[right] - 'a']++;
+
+            // maintain window size = m
+            if (right - left + 1 > m) {
+                freqS[s[left] - 'a']--;
+                left++;
+            }
+
+            // check if window is valid anagram
+            if (right - left + 1 == m && freqS == freqP) {
+                ans.push_back(left);
+            }
+        }
+
+        return ans;
+    }
+};
