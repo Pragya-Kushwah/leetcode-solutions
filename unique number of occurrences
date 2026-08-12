@@ -1,0 +1,24 @@
+class Solution {
+public:
+    bool uniqueOccurrences(vector<int>& arr) {
+
+        unordered_map<int, int> freq;
+        unordered_map<int, int> mp;
+
+        // Count frequency of each number
+        for(int i = 0; i < arr.size(); i++) {
+            freq[arr[i]]++;
+        }
+
+        // Check whether frequencies are unique
+        for(auto x : freq) {
+            if(mp.find(x.second) != mp.end()) {
+                return false;
+            }
+
+            mp[x.second]++;
+        }
+
+        return true;
+    }
+};
