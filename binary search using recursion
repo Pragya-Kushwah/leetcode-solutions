@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int binarySearch(vector<int>& nums, int left, int right, int target) {
+
+        // Base case
+        if (left > right) {
+            return -1;
+        }
+
+        int mid = left + (right - left) / 2;
+
+        // Found
+        if (nums[mid] == target) {
+            return mid;
+        }
+
+        // Search left half
+        else if (nums[mid] > target) {
+            return binarySearch(nums, left, mid - 1, target);
+        }
+
+        // Search right half
+        else {
+            return binarySearch(nums, mid + 1, right, target);
+        }
+    }
+
+    int search(vector<int>& nums, int target) {
+        return binarySearch(nums, 0, nums.size() - 1, target);
+    }
+};
